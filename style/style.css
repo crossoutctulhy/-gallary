@@ -38,29 +38,47 @@ table {
 
 /* Global styles */
 body {
-    background-color: #272727;
-    color: white;
-    font-family: 'ofont';
+    background-color: #333; /* Darker base */
+    color: #ddd; /* Slightly less pure white */
+    font-family: 'ofont', sans-serif; /* Add a fallback */
     background: url("../assets/1674316210_catherineasquithgallery-com-p-seraya-myataya-bumaga-fon-foto-1.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     overflow-x: hidden;
+    /* Grunge additions */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* subtle text shadow */
+    /* Add texture overlay for an aged look. Consider using a transparent PNG of a grunge texture. */
+    /*background-image: url("grunge_texture.png");*/  /* Replace with your grunge texture */
+    /*background-blend-mode: multiply;*/ /* Apply blend mode for interaction between BG color and image */
 }
 
 a {
-  color: white;
+  color: #bbb;  /* Muted color, not pure white */
   text-decoration: none;
+  /* Grunge additions */
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+a:hover {
+  color: #fff; /* Slightly brighter on hover */
 }
 
 img {
   border-radius: 5px;
+  /* Grunge additions */
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.4); /* Offset shadow simulates depth */
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  /* Grunge additions */
+  /* Slightly alter the borders */
+  border: 1px solid rgba(255,255,255,0.05); /* Subtle border */
+  padding: 10px;
+
 }
 
 .gallary {
@@ -72,6 +90,12 @@ img {
   padding: 0;
   margin: 0;
   font-size: 42px;
+  /* Grunge additions */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  /* Consider a distressed font for the title */
+  /*font-family: 'distressed_font', sans-serif; */
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
 }
 
 .gallary .pictures {
@@ -81,17 +105,34 @@ img {
   gap: 20px;
   row-gap: 40px;
   flex-wrap: wrap;
+  /* Grunge additions */
+    /* Add slight rotation */
+    /*transform: rotate(-0.8deg);*/
 }
 
 .gallary .pictures .picture_box {
   max-width: 350px;
   box-shadow: 20px 20px 50px #000000;
+  /* Grunge additions */
+  border: 1px solid rgba(255,255,255,0.1); /* Subtle border */
+  /* Add a slight tilt to each picture box */
+  transform: rotate(-1deg);  /* Slightly rotate to give the look of being off */
+  overflow: hidden;
 }
 
 .gallary .pictures .picture_box img {
   padding: 0;
   width: 100%;
+  /* Additional Grunge  */
+   transition: transform 0.3s ease;
+
 }
+
+.gallary .pictures .picture_box img:hover {
+    /* Slightly exaggerate movement on hover */
+    transform: scale(1.1);
+}
+
 
 @media (max-width: 1300px) {
   .container {

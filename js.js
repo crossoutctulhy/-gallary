@@ -235,29 +235,7 @@ document.addEventListener('contextmenu', function (event) {
       }
     });
   }
-  // 4. Отключение контекстного меню (по желанию, может раздражать пользователей)
-  function disableContextMenu() {
-    document.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-      showAlert('Context menu is disabled.');
-    });
-  }
-  // 5. Отключение выбора текста (по желанию, может раздражать пользователей)
-  function disableTextSelection() {
-    document.addEventListener('selectstart', function (e) {
-      e.preventDefault();
-      showAlert('Text selection is disabled.');
-    });
-  }
-  // 6. Проверка Referer (будьте осторожны, может ломать обычное поведение некоторых сайтов)
-  function checkReferer() {
-    const validReferers = [window.location.origin, 'https://yourdomain.com']; // Добавьте разрешенные Referer
-    const referer = document.referrer;
-    if (referer && !validReferers.includes(new URL(referer).origin)) {
-      showAlert('Unauthorized access detected based on Referer.');
-      redirectToErrorPage();
-    }
-  }
+
   // 7. Предотвращение вывода в консоль (крайне неэффективно, легко обходится)
   function preventConsoleOutput() {
     // Этот пример - скорее placeholder.  Реально защититься от вывода в консоль довольно сложно.
@@ -280,7 +258,7 @@ document.addEventListener('contextmenu', function (event) {
       return;
     }
     let submitAttempts = 0;
-    const maxAttempts = 5; // Максимальное количество попыток
+    const maxAttempts = 50; // Максимальное количество попыток
     const lockOutTime = 60000; // Время блокировки в миллисекундах (1 минута)
     let isLockedOut = false;
     form.addEventListener('submit', function (event) {

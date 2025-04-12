@@ -1,546 +1,638 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ДШИ gallary">
     <link rel="stylesheet" href="./style/style.css">
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="icon"  href="фончик.webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="icon" href="фончик.webp">
     <title>ДШИ gallary</title>
     <style>
-        .picture_box {
-            text-align: center; /* Центрируем содержимое */
-            padding: 10px; /* Добавляем отступы внутри элемента */
-        }
-
-        .picture_box p {
-            margin: 10px; /* Отступ от картинки */
-            font-size: 20px; /* Размер шрифта (опционально) */
-        }
-
-        /* Стили для модального окна */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(29, 29, 29, 0.121); /* Полупрозрачный черный фон */
-            z-index: 1000;
-            backdrop-filter: blur(20px); /* Размытие фона */
-        }
-
-        .modal-content {
-            position: fixed; /* Изменено на fixed */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column; /*  Располагаем контент вертикально */
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content img {
-            max-width: 80%; /*  Уменьшаем размер изображения */
-            max-height: 70%; /*  Уменьшаем размер изображения */
-            object-fit: contain; /*  Чтобы изображение помещалось в контейнер и сохраняло пропорции */
-        }
-        li {
-            cursor: pointer; /* Меняет курсор на указательный палец при наведении */
-            transition: transform 0.2s ease-in-out; /* Добавляет плавный эффект для поднятия */
-        }
-
-        img:hover {
-            transform: translateY(-5px); /* Поднимает картинку на 5 пикселей */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляет тень для визуального эффекта поднятия (опционально) */
-        }
-
-        .close-button {
-            position: absolute;
-            top: 10px; /* Позиционируем в верхнем углу */
-            right: 10px; /* Позиционируем в правом углу */
-            font-size: 24px;
-            color: white;
-            cursor: pointer;
-            z-index: 1001; /*  Чтобы кнопка была над изображением */
-        }
-        img{
-            max-height: 720;
-            min-height: 1;
-        }
-
-        /* Стили для стрелок */
-        .arrow {
-            position: absolute;
-            bottom: 20px; /*  Фиксируем стрелки снизу */
-            /* top: 0;  Удаляем, чтобы стрелки не растягивались по высоте */
-            display: flex;
-            align-items: center; /*  Центрируем стрелки по вертикали */
-            font-size: 2em;
-            color: white;
-            cursor: pointer;
-            user-select: none;
-            z-index: 1002;
-            padding: 20px;
-        }
-
-        .arrow.left {
-            left: 0;
-            justify-content: flex-start;
-        }
-        
-
-        .arrow.right {
-            right: 0;
-            justify-content: flex-end;
-        }
-
-        /* Добавляем стили для текста под картинкой в модальном окне */
-        .modal-text {
-            color: white;
-            font-size: 16px;
-            margin-top: 10px;
-            text-align: center;
-            padding: 10px;
-        }
+      .picture_box {
+        text-align: center;
+        /* Центрируем содержимое */
+        padding: 10px;
+        /* Добавляем отступы внутри элемента */
+      }
+      
+      .picture_box p {
+        margin: 10px;
+        /* Отступ от картинки */
+        font-size: 20px;
+        /* Размер шрифта (опционально) */
+      }
+      /* Стили для модального окна */
+      
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(29, 29, 29, 0.121);
+        /* Полупрозрачный черный фон */
+        z-index: 1000;
+        backdrop-filter: blur(20px);
+        /* Размытие фона */
+      }
+      
+      .modal-content {
+        position: fixed;
+        /* Изменено на fixed */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        /*  Располагаем контент вертикально */
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .modal-content img {
+        max-width: 80%;
+        /*  Уменьшаем размер изображения */
+        max-height: 70%;
+        /*  Уменьшаем размер изображения */
+        object-fit: contain;
+        /*  Чтобы изображение помещалось в контейнер и сохраняло пропорции */
+      }
+      
+      li {
+        cursor: pointer;
+        /* Меняет курсор на указательный палец при наведении */
+        transition: transform 0.2s ease-in-out;
+        /* Добавляет плавный эффект для поднятия */
+      }
+      
+      img:hover {
+        transform: translateY(-5px);
+        /* Поднимает картинку на 5 пикселей */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Добавляет тень для визуального эффекта поднятия (опционально) */
+      }
+      
+      .close-button {
+        position: absolute;
+        top: 10px;
+        /* Позиционируем в верхнем углу */
+        right: 10px;
+        /* Позиционируем в правом углу */
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+        z-index: 1001;
+        /*  Чтобы кнопка была над изображением */
+      }
+      
+      img {
+        max-height: 720;
+        min-height: 1;
+      }
+      /* Стили для стрелок */
+      
+      .arrow {
+        position: absolute;
+        bottom: 20px;
+        /*  Фиксируем стрелки снизу */
+        /* top: 0;  Удаляем, чтобы стрелки не растягивались по высоте */
+        display: flex;
+        align-items: center;
+        /*  Центрируем стрелки по вертикали */
+        font-size: 2em;
+        color: white;
+        cursor: pointer;
+        user-select: none;
+        z-index: 1002;
+        padding: 20px;
+      }
+      
+      .arrow.left {
+        left: 0;
+        justify-content: flex-start;
+      }
+      
+      .arrow.right {
+        right: 0;
+        justify-content: flex-end;
+      }
+      /* Добавляем стили для текста под картинкой в модальном окне */
+      
+      .modal-text {
+        color: white;
+        font-size: 16px;
+        margin-top: 10px;
+        text-align: center;
+        padding: 10px;
+      }
+      
+      header {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Полупрозрачный фон для шапки */
+        padding: 20px 0;
+        position: relative;
+        overflow: hidden;
+        /*  */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        /* Subtle shadow */
+      }
+      
+      .header-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        font-family: 'Courier New', monospace;
+        /* Grungy font */
+        font-size: 3em;
+        color: #ddd;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        /* Subtle shadow for depth */
+        letter-spacing: -3px;
+        margin: 0;
+        -webkit-text-stroke: 1px #222;
+        /* Add a stroke for extra grit */
+        text-decoration: line-through;
+        /*  */
+        text-decoration-color: #FF4136;
+      }
+      
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+      }
+      
+      nav li {
+        margin-left: 20px;
+      }
+      
+      nav a {
+        color: #ddd;
+        text-decoration: none;
+        font-size: 1.2em;
+        padding: 8px 15px;
+        border: 1px dashed #666;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+      }
+      
+      nav a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-color: #aaa;
+      }
+      /* Дополнительные эффекты гранжа */
+      
+      header::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 150px;
+        height: 150px;
+        background-color: rgba(255, 0, 0, 0.1);
+        transform: rotate(-20deg);
+        z-index: 0;
+        /* Send it behind the content */
+        pointer-events: none;
+        /* Make it non-interactive */
+      }
+      
+      header::after {
+        content: '';
+        position: absolute;
+        bottom: -30px;
+        right: -30px;
+        width: 80px;
+        height: 80px;
+        background-color: rgba(0, 255, 0, 0.1);
+        transform: rotate(30deg);
+        z-index: 0;
+        /* Send it behind the content */
+        pointer-events: none;
+        /* Make it non-interactive */
+      }
+      
+      .logo::before {
+        content: '!';
+        position: absolute;
+        top: -0.3em;
+        left: -0.5em;
+        font-size: 1.5em;
+        color: #FF4136;
+        text-shadow: none;
+        /* Remove shadow from the exclamation mark */
+      }
+      
+      img {
+        border-radius: 5px;
+        overflow: hidden;
+      }
     </style>
-</head>
-<body>
-    
-    <section class="gallary">
-        <div class="container">
-            <div class="title">ДШИ галерея открыток с 9 мая</div>
-            <ul class="pictures">
-                
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 40">
-                    <p>Текст под картинкой 40</p>
-                </li>
-                 <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 41">
-                    <p>Текст под картинкой 41</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 42">
-                    <p>Текст под картинкой 42</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 43">
-                    <p>Текст под картинкой 43</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 44">
-                    <p>Текст под картинкой 44</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 45">
-                    <p>Текст под картинкой 45</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 46">
-                    <p>Текст под картинкой 46</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 47">
-                    <p>Текст под картинкой 47</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 48">
-                    <p>Текст под картинкой 48</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 49">
-                    <p>Текст под картинкой 49</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 50">
-                    <p>Текст под картинкой 50</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 51">
-                    <p>Текст под картинкой 51</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 52">
-                    <p>Текст под картинкой 52</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 53">
-                    <p>Текст под картинкой 53</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 54">
-                    <p>Текст под картинкой 54</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 55">
-                    <p>Текст под картинкой 55</p>
-                </li>
-                <li class="picture_box wow animate__animated animate__fadeInUp">
-                    <img src="фончик.webp" alt="Описание картинки 56">
-                    <p>Текст под картинкой 56</p>
-                </li>
-            </ul>
-        </div>
-    </section>
+  </head>
 
+  <body>
+    <header>
+      <div class="header-container">
+        <h1 class="logo">ДШИ галерея</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">открытки 9 мая</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <section class="gallary">
+      <div class="container">
+        <div class="title">ДШИ галерея открыток с 9 мая</div>
+        <ul class="pictures">
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 40">
+            <p>Текст под картинкой 40</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 41">
+            <p>Текст под картинкой 41</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 42">
+            <p>Текст под картинкой 42</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 43">
+            <p>Текст под картинкой 43</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 44">
+            <p>Текст под картинкой 44</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 45">
+            <p>Текст под картинкой 45</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 46">
+            <p>Текст под картинкой 46</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 47">
+            <p>Текст под картинкой 47</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 48">
+            <p>Текст под картинкой 48</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 49">
+            <p>Текст под картинкой 49</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 50">
+            <p>Текст под картинкой 50</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 51">
+            <p>Текст под картинкой 51</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 52">
+            <p>Текст под картинкой 52</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 53">
+            <p>Текст под картинкой 53</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 54">
+            <p>Текст под картинкой 54</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 55">
+            <p>Текст под картинкой 55</p>
+          </li>
+          <li class="picture_box wow animate__animated animate__fadeInUp"> <img src="фончик.webp" alt="Описание картинки 56">
+            <p>Текст под картинкой 56</p>
+          </li>
+        </ul>
+      </div>
+    </section>
     <!-- Модальное окно -->
     <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <img id="modalImage" src="" alt="">
-            <div class="modal-text" id="modalText"></div>  <!-- Контейнер для текста -->
-            <div class="arrow left">&lt;</div>
-            <div class="arrow right">&gt;</div>
-        </div>
+      <div class="modal-content"> <span class="close-button">&times;</span> <img id="modalImage" src="" alt="">
+        <div class="modal-text" id="modalText"></div>
+        <!-- Контейнер для текста -->
+        <div class="arrow left">&lt;</div>
+        <div class="arrow right">&gt;</div>
+      </div>
     </div>
-
+    <footer> создано Артемий Лапа Павлович </footer>
     <script>
-        const images = document.querySelectorAll('.picture_box img');
-        const imageBoxes = document.querySelectorAll('.picture_box');
-        const modal = document.getElementById('myModal');
-        const modalImg = document.getElementById("modalImage");
-        const modalText = document.getElementById("modalText"); // Получаем элемент для текста
-        const closeBtn = document.querySelector(".close-button");
-        const arrowLeft = document.querySelector(".arrow.left");
-        const arrowRight = document.querySelector(".arrow.right");
-        let currentImageIndex = 0;
-
-        imageBoxes.forEach((box, index) => {
-            box.addEventListener('click', () => {
-                modal.style.display = "block";
-                currentImageIndex = index;
-                updateModalImage();
-            });
+      const images = document.querySelectorAll('.picture_box img');
+      const imageBoxes = document.querySelectorAll('.picture_box');
+      const modal = document.getElementById('myModal');
+      const modalImg = document.getElementById("modalImage");
+      const modalText = document.getElementById("modalText"); // Получаем элемент для текста
+      const closeBtn = document.querySelector(".close-button");
+      const arrowLeft = document.querySelector(".arrow.left");
+      const arrowRight = document.querySelector(".arrow.right");
+      let currentImageIndex = 0;
+      imageBoxes.forEach((box, index) => {
+        box.addEventListener('click', () => {
+          modal.style.display = "block";
+          currentImageIndex = index;
+          updateModalImage();
         });
-
-
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = "none";
-        });
-
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-
-        arrowLeft.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-            updateModalImage();
-        });
-
-        arrowRight.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex + 1) % images.length;
-            updateModalImage();
-        });
-
-        function updateModalImage() {
-            modalImg.src = images[currentImageIndex].src;
-            modalImg.alt = images[currentImageIndex].alt;
-            modalText.textContent = imageBoxes[currentImageIndex].querySelector('p').textContent; // Добавляем текст
+      });
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = "none";
+      });
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
         }
+      });
+      arrowLeft.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        updateModalImage();
+      });
+      arrowRight.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        updateModalImage();
+      });
+
+      function updateModalImage() {
+        modalImg.src = images[currentImageIndex].src;
+        modalImg.alt = images[currentImageIndex].alt;
+        modalText.textContent = imageBoxes[currentImageIndex].querySelector('p').textContent; // Добавляем текст
+      }
     </script>
-        <script>
-            document.addEventListener('contextmenu', function(event) {
-              // Предотвращаем появление стандартного контекстного меню
-              event.preventDefault();
-              // Создаем новый элемент (квадрат)
-              const square = document.createElement('div');
-              // Задаем стили для квадрата
-              square.style.width = '1px';
-              square.style.height = '1px';
-              square.style.backgroundColor = 'white';
-              square.style.position = 'fixed'; // Фиксированное позиционирование, чтобы он всегда был на экране
-              square.style.top = event.clientY + 'px'; // Позиционируем по вертикали относительно курсора
-              square.style.left = event.clientX + 'px'; // Позиционируем по горизонтали относительно курсора
-              square.style.zIndex = '10000'; // Убедимся, что он поверх всего
-              // Добавляем квадрат на страницу
-              document.body.appendChild(square);
-              // Функция для удаления квадрата
-              function removeSquare() {
-                if (square && document.body.contains(square)) { // Проверка на существование и наличие в DOM
-                  document.body.removeChild(square);
-                }
-                // Удаляем обработчик событий (важно для избежания утечек памяти)
-                document.removeEventListener('mousemove', mouseMoveHandler);
-              }
-              // Обработчик события mousemove для отслеживания движения курсора
-              function mouseMoveHandler(e) {
-                // Получаем координаты курсора относительно квадрата
-                const rect = square.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                // Если курсор находится вне квадрата, удаляем его
-                if (x < 0 || x > rect.width || y < 0 || y > rect.height) {
-                  removeSquare();
-                }
-              }
-              // Добавляем обработчик события mousemove
-              document.addEventListener('mousemove', mouseMoveHandler);
-              // Альтернативный способ: удаление по нажатию левой кнопки мыши
-              // (удобнее, чем отводить курсор, особенно если квадрат маленький)
-              document.addEventListener('mousedown', function removeOnClick(e) {
-                removeSquare();
-                document.removeEventListener('mousedown', removeOnClick);
-              });
-              // Альтернативный способ: удаление по потере фокуса окна
-              // (если переключились на другое окно или вкладку)
-              window.addEventListener('blur', function removeOnBlur() {
-                removeSquare();
-                window.removeEventListener('blur', removeOnBlur);
-              });
-            });
-          </script>
-          <script>
-            (function() {
-              'use strict';
-              // Функция для защиты от clickjacking
-              function protectFromClickjacking() {
-                // Проверка наличия iframe
-                if (window.self !== window.top) {
-                  // Перенаправление на верхний уровень, если находимся во фрейме
-                  window.top.location.href = window.self.location.href;
-                  // Альтернативный способ: скрытие элемента
-                  document.documentElement.style.display = 'none';
-                }
-              }
-              // Защита при загрузке страницы
-              protectFromClickjacking();
-              // Дополнительная защита при изменении истории браузера (например, SPA)
-              window.addEventListener('popstate', protectFromClickjacking);
-      
-              function addRandomIdToBody() {
-                const randomId = 'clickjacking-protection-' + Math.random().toString(36).substring(2, 15);
-                document.body.id = randomId;
-                // Также можно добавить случайный класс
-                document.body.classList.add('clickjacking-protection-class-' + Math.random().toString(36).substring(2, 15));
-              }
-              addRandomIdToBody();
-            })();
-          </script>
-          <script>
-            // mime-sniffing-protection.js
-            (function() {
-              // Функция для установки заголовка X-Content-Type-Options: nosniff
-              function applyNosniffHeader() {
-                const meta = document.createElement('meta');
-                meta.httpEquiv = 'X-Content-Type-Options';
-                meta.content = 'nosniff';
-                // Вставляем тег meta в <head>, если он существует
-                const head = document.head || document.getElementsByTagName('head')[0];
-                if (head) {
-                  head.appendChild(meta);
-                } else {
-                  // Если head отсутствует, пытаемся добавить в <body>
-                  const body = document.body || document.getElementsByTagName('body')[0];
-                  if (body) {
-                    body.appendChild(meta);
-                  } else {
-                    console.warn("Не удалось добавить мета-тег X-Content-Type-Options: nosniff. Отсутствуют элементы head и body.");
-                  }
-                }
-              }
-              // Функция для добавления обработчиков для  изображений, скриптов и стилей
-              function protectResources() {
-                // Защита скриптов
-                const scripts = document.getElementsByTagName('script');
-                for (let i = 0; i < scripts.length; i++) {
-                  const script = scripts[i];
-                  if (script.src && !script.type) { // Если src есть, но type отсутствует
-                    script.type = 'text/javascript'; // Явно задаем MIME-тип
-                  }
-                }
-                // Защита стилей
-                const stylesheets = document.getElementsByTagName('link');
-                for (let i = 0; i < stylesheets.length; i++) {
-                  const stylesheet = stylesheets[i];
-                  if (stylesheet.rel === 'stylesheet' && !stylesheet.type) {
-                    stylesheet.type = 'text/css'; // Явно задаем MIME-тип
-                  }
-                }
-                // Защита изображений (попытка предотвратить исполнение как JS)
-                const images = document.getElementsByTagName('img');
-                for (let i = 0; i < images.length; i++) {
-                  const img = images[i];
-                  // Здесь сложнее, так как нельзя просто установить тип.  Необходимо полагаться на правильный MIME-тип,
-                  // отдаваемый сервером.  Альтернативно, можно добавить атрибуты безопасности, такие как
-                  // `sandbox` в iframe (если изображение загружается в iframe).  Однако, это не является прямой защитой от сниффинга.
-                  // В качестве примера, можно попробовать заблокировать загрузку не-изображений как изображения
-                  img.onerror = function() {
-                    console.warn("Ошибка загрузки изображения. Возможно, неверный MIME-тип.");
-                    this.style.display = 'none'; // Скрываем изображение, если произошла ошибка загрузки
-                  };
-                }
-              }
-              // Проверяем, не был ли заголовок уже установлен на сервере.  Это лучший способ защиты.
-              function checkServerHeader() {
-                // Проверка невозможна полностью на стороне клиента, так как для этого требуется AJAX запрос,
-                // что может создать циклическую зависимость, если этот скрипт вызывается до завершения загрузки.
-                // В реальной рабочей среде убедитесь, что заголовок `X-Content-Type-Options: nosniff` отправляется сервером.
-                // В качестве индикатора, можно проверить наличие заголовка Content-Type у текущего документа.
-                // Это не совсем надежно, но может дать некоторое представление.
-                if (document.contentType && !document.contentType.includes('html')) {
-                  console.info("Предполагается, что заголовок X-Content-Type-Options уже установлен сервером.");
-                  return true; // Предполагаем, что заголовок уже есть
-                }
-                return false;
-              }
-              // Основная логика
-              if (!checkServerHeader()) {
-                applyNosniffHeader();
-              }
-              protectResources();
-              console.log("MIME Sniffing Protection applied.");
-            })();
-          </script>
-          <script>
-            (function() {
-  'use strict';
+    <script>
+      document.addEventListener('contextmenu', function(event) {
+        // Предотвращаем появление стандартного контекстного меню
+        event.preventDefault();
+        // Создаем новый элемент (квадрат)
+        const square = document.createElement('div');
+        // Задаем стили для квадрата
+        square.style.width = '1px';
+        square.style.height = '1px';
+        square.style.backgroundColor = 'white';
+        square.style.position = 'fixed'; // Фиксированное позиционирование, чтобы он всегда был на экране
+        square.style.top = event.clientY + 'px'; // Позиционируем по вертикали относительно курсора
+        square.style.left = event.clientX + 'px'; // Позиционируем по горизонтали относительно курсора
+        square.style.zIndex = '10000'; // Убедимся, что он поверх всего
+        // Добавляем квадрат на страницу
+        document.body.appendChild(square);
+        // Функция для удаления квадрата
+        function removeSquare() {
+          if (square && document.body.contains(square)) { // Проверка на существование и наличие в DOM
+            document.body.removeChild(square);
+          }
+          // Удаляем обработчик событий (важно для избежания утечек памяти)
+          document.removeEventListener('mousemove', mouseMoveHandler);
+        }
+        // Обработчик события mousemove для отслеживания движения курсора
+        function mouseMoveHandler(e) {
+          // Получаем координаты курсора относительно квадрата
+          const rect = square.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          // Если курсор находится вне квадрата, удаляем его
+          if (x < 0 || x > rect.width || y < 0 || y > rect.height) {
+            removeSquare();
+          }
+        }
+        // Добавляем обработчик события mousemove
+        document.addEventListener('mousemove', mouseMoveHandler);
+        // Альтернативный способ: удаление по нажатию левой кнопки мыши
+        // (удобнее, чем отводить курсор, особенно если квадрат маленький)
+        document.addEventListener('mousedown', function removeOnClick(e) {
+          removeSquare();
+          document.removeEventListener('mousedown', removeOnClick);
+        });
+        // Альтернативный способ: удаление по потере фокуса окна
+        // (если переключились на другое окно или вкладку)
+        window.addEventListener('blur', function removeOnBlur() {
+          removeSquare();
+          window.removeEventListener('blur', removeOnBlur);
+        });
+      });
+    </script>
+    <script>
+      (function() {
+        'use strict';
+        // Функция для защиты от clickjacking
+        function protectFromClickjacking() {
+          // Проверка наличия iframe
+          if (window.self !== window.top) {
+            // Перенаправление на верхний уровень, если находимся во фрейме
+            window.top.location.href = window.self.location.href;
+            // Альтернативный способ: скрытие элемента
+            document.documentElement.style.display = 'none';
+          }
+        }
+        // Защита при загрузке страницы
+        protectFromClickjacking();
+        // Дополнительная защита при изменении истории браузера (например, SPA)
+        window.addEventListener('popstate', protectFromClickjacking);
 
-  // Функция для отображения предупреждения (можно изменить, если это необходимо)
-  function showAlert(message) {
-    alert('[Security Alert] ' + message); // Используйте более нативные нотификации по желанию
-  }
-
-  // Функция для перенаправления на страницу ошибки (можно настраивать)
-  function redirectToErrorPage() {
-    window.location.href = '/error.html'; // Замените на ваш URL страницы ошибки
-  }
-
-  // 1. Предотвращение XSS (Cross-Site Scripting) попыток через URL параметры
-  function sanitizeURLParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    for (const [key, value] of urlParams.entries()) {
-      if (/[<>"'/]/.test(value)) { // Проверяем на наличие опасных символов
-        showAlert('Dangerous characters detected in URL parameter: ' + key);
-        redirectToErrorPage();
-        return; // Завершаем обработку
-      }
-    }
-  }
-
-  // 2. Защита от кликджекинга (Clickjacking)
-  function preventClickjacking() {
-    if (window.self === window.top) {
-      document.documentElement.style.display = 'block'; // Показать сайт, если он не во фрейме
-    } else {
-      window.top.location = window.self.location; // Перенаправить из фрейма, если он есть
-    }
-  }
-
-  // 3. Предотвращение использования сайта во фреймах на других доменах (альтернатива X-Frame-Options)
-  function preventFraming() {
-    document.addEventListener('DOMContentLoaded', function() {
-      if (window.location !== window.parent.location) {
-        window.parent.location = window.location.href;
-      }
-    });
-  }
-
-  // 4. Отключение контекстного меню (по желанию, может раздражать пользователей)
-  function disableContextMenu() {
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      showAlert('Context menu is disabled.');
-    });
-  }
-
-  // 5. Отключение выбора текста (по желанию, может раздражать пользователей)
-  function disableTextSelection() {
-    document.addEventListener('selectstart', function(e) {
-      e.preventDefault();
-      showAlert('Text selection is disabled.');
-    });
-  }
-
-  // 6. Проверка Referer (будьте осторожны, может ломать обычное поведение некоторых сайтов)
-  function checkReferer() {
-    const validReferers = [window.location.origin, 'https://yourdomain.com']; // Добавьте разрешенные Referer
-    const referer = document.referrer;
-
-    if (referer && !validReferers.includes(new URL(referer).origin)) {
-      showAlert('Unauthorized access detected based on Referer.');
-      redirectToErrorPage();
-    }
-  }
-
-  // 7. Предотвращение вывода в консоль (крайне неэффективно, легко обходится)
-  function preventConsoleOutput() {
-    // Этот пример - скорее placeholder.  Реально защититься от вывода в консоль довольно сложно.
-    console.log = function() {
-      // Не делаем ничего.  Альтернативно, можно выводить бессмысленные сообщения.
-      console.warn("Console output is disabled for security reasons."); // Пример
-    };
-    console.clear();
-  }
-
-    // 8. Защита от атак перебора (brute-force) при отправке форм (только клиентская часть, нужна серверная валидация!)
-    function protectFromBruteForce(formId) {
-        const form = document.getElementById(formId);
-        if (!form) {
+        function addRandomIdToBody() {
+          const randomId = 'clickjacking-protection-' + Math.random().toString(36).substring(2, 15);
+          document.body.id = randomId;
+          // Также можно добавить случайный класс
+          document.body.classList.add('clickjacking-protection-class-' + Math.random().toString(36).substring(2, 15));
+        }
+        addRandomIdToBody();
+      })();
+    </script>
+    <script>
+      // mime-sniffing-protection.js
+      (function() {
+        // Функция для установки заголовка X-Content-Type-Options: nosniff
+        function applyNosniffHeader() {
+          const meta = document.createElement('meta');
+          meta.httpEquiv = 'X-Content-Type-Options';
+          meta.content = 'nosniff';
+          // Вставляем тег meta в <head>, если он существует
+          const head = document.head || document.getElementsByTagName('head')[0];
+          if (head) {
+            head.appendChild(meta);
+          } else {
+            // Если head отсутствует, пытаемся добавить в <body>
+            const body = document.body || document.getElementsByTagName('body')[0];
+            if (body) {
+              body.appendChild(meta);
+            } else {
+              console.warn("Не удалось добавить мета-тег X-Content-Type-Options: nosniff. Отсутствуют элементы head и body.");
+            }
+          }
+        }
+        // Функция для добавления обработчиков для  изображений, скриптов и стилей
+        function protectResources() {
+          // Защита скриптов
+          const scripts = document.getElementsByTagName('script');
+          for (let i = 0; i < scripts.length; i++) {
+            const script = scripts[i];
+            if (script.src && !script.type) { // Если src есть, но type отсутствует
+              script.type = 'text/javascript'; // Явно задаем MIME-тип
+            }
+          }
+          // Защита стилей
+          const stylesheets = document.getElementsByTagName('link');
+          for (let i = 0; i < stylesheets.length; i++) {
+            const stylesheet = stylesheets[i];
+            if (stylesheet.rel === 'stylesheet' && !stylesheet.type) {
+              stylesheet.type = 'text/css'; // Явно задаем MIME-тип
+            }
+          }
+          // Защита изображений (попытка предотвратить исполнение как JS)
+          const images = document.getElementsByTagName('img');
+          for (let i = 0; i < images.length; i++) {
+            const img = images[i];
+            // Здесь сложнее, так как нельзя просто установить тип.  Необходимо полагаться на правильный MIME-тип,
+            // отдаваемый сервером.  Альтернативно, можно добавить атрибуты безопасности, такие как
+            // `sandbox` в iframe (если изображение загружается в iframe).  Однако, это не является прямой защитой от сниффинга.
+            // В качестве примера, можно попробовать заблокировать загрузку не-изображений как изображения
+            img.onerror = function() {
+              console.warn("Ошибка загрузки изображения. Возможно, неверный MIME-тип.");
+              this.style.display = 'none'; // Скрываем изображение, если произошла ошибка загрузки
+            };
+          }
+        }
+        // Проверяем, не был ли заголовок уже установлен на сервере.  Это лучший способ защиты.
+        function checkServerHeader() {
+          // Проверка невозможна полностью на стороне клиента, так как для этого требуется AJAX запрос,
+          // что может создать циклическую зависимость, если этот скрипт вызывается до завершения загрузки.
+          // В реальной рабочей среде убедитесь, что заголовок `X-Content-Type-Options: nosniff` отправляется сервером.
+          // В качестве индикатора, можно проверить наличие заголовка Content-Type у текущего документа.
+          // Это не совсем надежно, но может дать некоторое представление.
+          if (document.contentType && !document.contentType.includes('html')) {
+            console.info("Предполагается, что заголовок X-Content-Type-Options уже установлен сервером.");
+            return true; // Предполагаем, что заголовок уже есть
+          }
+          return false;
+        }
+        // Основная логика
+        if (!checkServerHeader()) {
+          applyNosniffHeader();
+        }
+        protectResources();
+        console.log("MIME Sniffing Protection applied.");
+      })();
+    </script>
+    <script>
+      (function() {
+        'use strict';
+        // Функция для отображения предупреждения (можно изменить, если это необходимо)
+        function showAlert(message) {
+          alert('[Security Alert] ' + message); // Используйте более нативные нотификации по желанию
+        }
+        // Функция для перенаправления на страницу ошибки (можно настраивать)
+        function redirectToErrorPage() {
+          window.location.href = '/error.html'; // Замените на ваш URL страницы ошибки
+        }
+        // 1. Предотвращение XSS (Cross-Site Scripting) попыток через URL параметры
+        function sanitizeURLParams() {
+          const urlParams = new URLSearchParams(window.location.search);
+          for (const [key, value] of urlParams.entries()) {
+            if (/[<>"'/]/.test(value)) { // Проверяем на наличие опасных символов
+              showAlert('Dangerous characters detected in URL parameter: ' + key);
+              redirectToErrorPage();
+              return; // Завершаем обработку
+            }
+          }
+        }
+        // 2. Защита от кликджекинга (Clickjacking)
+        function preventClickjacking() {
+          if (window.self === window.top) {
+            document.documentElement.style.display = 'block'; // Показать сайт, если он не во фрейме
+          } else {
+            window.top.location = window.self.location; // Перенаправить из фрейма, если он есть
+          }
+        }
+        // 3. Предотвращение использования сайта во фреймах на других доменах (альтернатива X-Frame-Options)
+        function preventFraming() {
+          document.addEventListener('DOMContentLoaded', function() {
+            if (window.location !== window.parent.location) {
+              window.parent.location = window.location.href;
+            }
+          });
+        }
+        // 4. Отключение контекстного меню (по желанию, может раздражать пользователей)
+        function disableContextMenu() {
+          document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            showAlert('Context menu is disabled.');
+          });
+        }
+        // 5. Отключение выбора текста (по желанию, может раздражать пользователей)
+        function disableTextSelection() {
+          document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            showAlert('Text selection is disabled.');
+          });
+        }
+        // 6. Проверка Referer (будьте осторожны, может ломать обычное поведение некоторых сайтов)
+        function checkReferer() {
+          const validReferers = [window.location.origin, 'https://yourdomain.com']; // Добавьте разрешенные Referer
+          const referer = document.referrer;
+          if (referer && !validReferers.includes(new URL(referer).origin)) {
+            showAlert('Unauthorized access detected based on Referer.');
+            redirectToErrorPage();
+          }
+        }
+        // 7. Предотвращение вывода в консоль (крайне неэффективно, легко обходится)
+        function preventConsoleOutput() {
+          // Этот пример - скорее placeholder.  Реально защититься от вывода в консоль довольно сложно.
+          console.log = function() {
+            // Не делаем ничего.  Альтернативно, можно выводить бессмысленные сообщения.
+            console.warn("Console output is disabled for security reasons."); // Пример
+          };
+          console.clear();
+        }
+        // 8. Защита от атак перебора (brute-force) при отправке форм (только клиентская часть, нужна серверная валидация!)
+        function protectFromBruteForce(formId) {
+          const form = document.getElementById(formId);
+          if (!form) {
             console.warn("Form with ID " + formId + " not found.");
             return;
-        }
-
-        const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
-        if (!submitButton) {
+          }
+          const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
+          if (!submitButton) {
             console.warn("No submit button found in form " + formId);
             return;
-        }
-
-        let submitAttempts = 0;
-        const maxAttempts = 5; // Максимальное количество попыток
-        const lockOutTime = 60000; // Время блокировки в миллисекундах (1 минута)
-        let isLockedOut = false;
-
-        form.addEventListener('submit', function(event) {
+          }
+          let submitAttempts = 0;
+          const maxAttempts = 5; // Максимальное количество попыток
+          const lockOutTime = 60000; // Время блокировки в миллисекундах (1 минута)
+          let isLockedOut = false;
+          form.addEventListener('submit', function(event) {
             if (isLockedOut) {
-                event.preventDefault();
-                showAlert("Too many attempts.  Please try again later.");
-                return;
+              event.preventDefault();
+              showAlert("Too many attempts.  Please try again later.");
+              return;
             }
-
             submitAttempts++;
-
             if (submitAttempts > maxAttempts) {
-                event.preventDefault();
-                isLockedOut = true;
-                submitButton.disabled = true;
-                showAlert("Too many attempts.  You are temporarily locked out.");
-
-                setTimeout(function() {
-                    isLockedOut = false;
-                    submitButton.disabled = false;
-                    submitAttempts = 0;
-                    showAlert("Your account is now unlocked.");
-                }, lockOutTime);
+              event.preventDefault();
+              isLockedOut = true;
+              submitButton.disabled = true;
+              showAlert("Too many attempts.  You are temporarily locked out.");
+              setTimeout(function() {
+                isLockedOut = false;
+                submitButton.disabled = false;
+                submitAttempts = 0;
+                showAlert("Your account is now unlocked.");
+              }, lockOutTime);
             }
-        });
-    }
+          });
+        }
+        // Вызываем функции защиты
+        sanitizeURLParams();
+        preventClickjacking();
+        preventFraming();
+        // disableContextMenu(); // Опционально
+        // disableTextSelection(); // Опционально
+        checkReferer();
+        // preventConsoleOutput(); // Малоэффективно.
+        // Пример использования защиты от brute-force для формы с id "loginForm"
+        protectFromBruteForce("loginForm");
+      })();
+    </script>
+  </body>
 
-  // Вызываем функции защиты
-  sanitizeURLParams();
-  preventClickjacking();
-  preventFraming();
-  // disableContextMenu(); // Опционально
-  // disableTextSelection(); // Опционально
-  checkReferer();
-  // preventConsoleOutput(); // Малоэффективно.
-
-  // Пример использования защиты от brute-force для формы с id "loginForm"
-  protectFromBruteForce("loginForm");
-
-
-})();
-          </script>
-          
-
-   
-    
-</body>
 </html>

@@ -1,0 +1,121 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Box-sizing border-box */
+* {
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    background-color: #272727;
+    color: white;
+    font-family: 'ofont';
+    background: url("../assets/1674316210_catherineasquithgallery-com-p-seraya-myataya-bumaga-fon-foto-1.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+img {
+  border-radius: 5px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallary {
+  margin-top: 100px;
+}
+
+.gallary .title {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 42px;
+}
+
+.gallary .pictures {
+  margin: 50px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  row-gap: 40px;
+  flex-wrap: wrap;
+}
+
+.gallary .pictures .picture_box {
+  max-width: 350px;
+  box-shadow: 20px 20px 50px #000000;
+}
+
+.gallary .pictures .picture_box img {
+  padding: 0;
+  width: 100%;
+}
+
+@media (max-width: 1300px) {
+  .container {
+    max-width: 900px;
+    padding: 0 20px;
+  }
+
+  .gallary .pictures {
+    justify-content: space-around;
+  }
+
+  .gallary .pictures .picture_box {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallary .pictures .picture_box {
+    max-width: 350px;
+  }
+}

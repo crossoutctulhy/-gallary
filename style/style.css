@@ -160,3 +160,232 @@ img {
     max-width: 350px;
   }
 }
+.picture_box {
+  text-align: center;
+  /* Центрируем содержимое */
+  padding: 10px;
+  /* Добавляем отступы внутри элемента */
+}
+
+.picture_box p {
+  margin: 10px;
+  /* Отступ от картинки */
+  font-size: 20px;
+  /* Размер шрифта (опционально) */
+}
+
+/* Стили для модального окна */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(29, 29, 29, 0.121);
+  /* Полупрозрачный черный фон */
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+  /* Размытие фона */
+}
+
+.modal-content {
+  position: fixed;
+  /* Изменено на fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /*  Располагаем контент вертикально */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content img {
+  max-width: 80%;
+  /*  Уменьшаем размер изображения */
+  max-height: 70%;
+  /*  Уменьшаем размер изображения */
+  object-fit: contain;
+  /*  Чтобы изображение помещалось в контейнер и сохраняло пропорции */
+}
+
+li {
+  cursor: pointer;
+  /* Меняет курсор на указательный палец при наведении */
+  transition: transform 0.2s ease-in-out;
+  /* Добавляет плавный эффект для поднятия */
+}
+
+img:hover {
+  transform: translateY(-5px);
+  /* Поднимает картинку на 5 пикселей */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Добавляет тень для визуального эффекта поднятия (опционально) */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  /* Позиционируем в верхнем углу */
+  right: 10px;
+  /* Позиционируем в правом углу */
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+  /*  Чтобы кнопка была над изображением */
+}
+
+img {
+  max-height: 720;
+  min-height: 1;
+}
+
+/* Стили для стрелок */
+.arrow {
+  position: absolute;
+  top: 50%; /* Центрируем стрелки по вертикали */
+  transform: translateY(-50%); /* Корректируем позиционирование по вертикали */
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1002;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.3); /*  Чтобы лучше были видны */
+  border-radius: 5px; /*  */
+}
+
+.arrow.left {
+  left: 0;
+  justify-content: flex-start;
+}
+
+.arrow.right {
+  right: 0;
+  justify-content: flex-end;
+}
+
+/* Добавляем стили для текста под картинкой в модальном окне */
+.modal-text {
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+header {
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Полупрозрачный фон для шапки */
+  padding: 20px 0;
+  position: relative;
+  overflow: hidden;
+  /*  */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  /* Subtle shadow */
+}
+
+.header-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Courier New', monospace;
+  /* Grungy font */
+  font-size: 3em;
+  color: #ddd;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Subtle shadow for depth */
+  letter-spacing: -3px;
+  margin: 0;
+  -webkit-text-stroke: 1px #222;
+  /* Add a stroke for extra grit */
+  text-decoration: line-through;
+  /*  */
+  text-decoration-color: #FF4136;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav li {
+  margin-left: 20px;
+}
+
+nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 1.2em;
+  padding: 8px 15px;
+  border: 1px dashed #666;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: #aaa;
+}
+
+/* Дополнительные эффекты гранжа */
+header::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 150px;
+  height: 150px;
+  background-color: rgba(255, 0, 0, 0.1);
+  transform: rotate(-20deg);
+  z-index: 0;
+  /* Send it behind the content */
+  pointer-events: none;
+  /* Make it non-interactive */
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 80px;
+  height: 80px;
+  background-color: rgba(0, 255, 0, 0.1);
+  transform: rotate(30deg);
+  z-index: 0;
+  /* Send it behind the content */
+  pointer-events: none;
+  /* Make it non-interactive */
+}
+
+.logo::before {
+  content: '!';
+  position: absolute;
+  top: -0.3em;
+  left: -0.5em;
+  font-size: 1.5em;
+  color: #FF4136;
+  text-shadow: none;
+  /* Remove shadow from the exclamation mark */
+}
+
+img {
+  border-radius: 5px;
+  overflow: hidden;
+}

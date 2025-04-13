@@ -389,3 +389,82 @@ img {
   border-radius: 5px;
   overflow: hidden;
 }
+
+
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column; /* Секции располагаются друг под другом */
+    align-items: center; /* Выравнивание по центру */
+  }
+
+  .footer-section {
+    width: 80%; /* Увеличенная ширина секций */
+    text-align: center; /* Выравнивание текста по центру */
+  }
+}
+footer {
+  background-color: #00000000;
+  color: #fff;
+  padding: 30px 0;
+  font-size: 14px;
+}
+
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around; /* Равномерное распределение секций */
+  flex-wrap: wrap; /* Перенос на новую строку при необходимости */
+}
+
+.footer-section {
+  width: 30%; /* Ширина каждой секции */
+  margin-bottom: 20px; /* Отступ между секциями по вертикали */
+}
+
+/* Стили для заголовков */
+.footer-section h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Стили для ссылок */
+.footer-section a {
+  color: #eee;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: #fff;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section li {
+  margin-bottom: 5px;
+}
+.social-icons {
+  margin-top: 10px;
+}
+
+
+
+.social-icons a {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.social-icons img {
+  width: 250px;
+  height: 250px;
+}
